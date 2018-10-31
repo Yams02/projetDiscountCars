@@ -138,13 +138,13 @@
                           <h2>Your Cart:</h2>
                           <ul>
                             <li class="animate-repeat" ng-repeat="item in cart | orderBy:'category'">
-                              <span>{{ item.qty + ' x ' + item.description + ' = ' + (getCost(item) | currency) }}</span>
+                              <span>  <img width="100" height="100" src="{{item.image}}" />{{   item.qty + ' x ' + item.description + ' = ' + getCost(item)  }}€</span>
                               <button class="btn-danger btn-xs" ng-click="removeItem(item);">Remove Item</button>
                             </br>
                           </br>
                         </li>
                       </ul>
-                      <h3>Total: {{ getTotal() | currency }}</h3>
+                      <h3>Total: {{ getTotal() }}€</h3>
                       <button class="btn-danger" ng-click="clearCart();">Clear Cart</button>
                       <div>
                         <label>Password :</label>
@@ -249,6 +249,7 @@
         <hr>
         <h1>Bienvenu chez Discount Cars</h1>
         <div class="row">
+          <div class="container">
           <table class="table col-md-9 col-md-offset-3">
             <tr>
               <th>Image</th>
@@ -259,13 +260,13 @@
               <th>Total</th>
             </tr>
             <tr class="animate-repeat" ng-repeat="item in inventory | filter:searchText | orderBy:'category' ">
-              <td><img width="100" height="100" ng-src="{{ item.image }}"/></td>
+              <td><img width="300" height="200" ng-src="{{ item.image }}"/></td>
               <td>{{ item.category }}</td>
               <td>{{ item.description }}</td>
-              <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price | currency }}</td>
+              <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price }}€</td>
               <td><input type="number" ng-model="item.qty" class="qty"></td>
-              <td>{{ item.qty * item.price | currency }}</td>
-              <td><button class="btn btn-primary" ng-click="addItem(item)">Add to Cart</button></td>
+              <td>{{ item.qty * item.price }}€</td>
+              <td><button class="btn btn-primary" ng-click="addItem(item)">Commander</button></td>
             </tr>
           </table>
         </div>
@@ -279,7 +280,8 @@
           <a class="btn btn-primary" href="#"><i class="fas fa-home">HOME</i></a>
         </footer>
         <script src="assets/js/appPanier.js"></script>
+<script>
 
-
+</script>
       </body>
       </html>
