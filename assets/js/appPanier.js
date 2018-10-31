@@ -1,99 +1,72 @@
-(function(){
+angular.module('myApp', ['ngAnimate']);
 
-  var app = angular.module('store', ['ngCookies']);
-
-  app.controller('StoreController', ['$scope','$cookies', function($scope,$cookies){
-
-    $scope.products = productsData;
-    $scope.cart = [];
-    $scope.total = 0;
-    /*
-    if ($cookieStore.get('cart') !== null) {
-        $scope.cart =  $cookieStore.get('cart');
+angular.module('myApp')
+.controller('myController', function ($scope) {
+  $scope.master = {};
+  $scope.regex = '\\d+';
+  $scope.update = function(user) {
+    $scope.master = angular.copy(user);
+  };
+  $scope.message = ' ';
+  $scope.soumission = function (valid) {
+    if(valid) {
+      $scope.messageClass='alert-success';
+      $scope.message = 'Merci ' + $scope.user.prenom + ' votre inscription est validée !';
     }
-    */
-
-    if(!angular.isUndefined($cookies.get('total'))){
-      $scope.total = parseFloat($cookies.get('total'));
+    else {
+      $scope.messageClass='alert-danger';
+      $scope.message = 'Désolé mais il y a des données non valides !';
     }
-    //Sepetimiz daha önceden tanımlıysa onu çekelim
-    if (!angular.isUndefined($cookies.get('cart'))) {
-        $scope.cart =  $cookies.getObject('cart');
+  };
+  /*appPanier*/
+  $scope.inventory = [
+    { id :  1, category : "audi", description : "small water bottle",   price :   2.99, qty : 1, image: "assets/img/Audi-a3.jpg" },
+    { id :  2, category : "citroen", description : "large water bottle",   price :   2.99, qty : 1, image: "assets/img/citroen-2cv.jpg", onSale : true },
+    { id :  3, category : "citroen",   description : "small flashlight",     price :   6.99, qty : 1, image: "assets/img/citroen-c3.jpg" },
+    { id :  4, category : "peugeot",   description : "big flashlight",       price :  12.99, qty : 1, image: "assets/img/peugeot-205.jpg" },
+    { id :  5, category : "peugeot",        description : "small stove",          price :  29.99, qty : 1, image: "assets/img/peugeot-police.jpg" },
+    { id :  6, category : "renault",        description : "big stove",            price :  29.99, qty : 1, image: "assets/img/renault-5.jpg" },
+    { id :  7, category : "renault", description : "simple sleeping bag",  price :  49.99, qty : 1, image: "assets/img/renault-clio.jpg" },
+    { id :  8, category : "renault", description : "deluxe sleeping bag",  price :  79.99, qty : 1, image: "assets/img/renault-scenic.jpg" },
+    { id :  9, category : "voiture enfant",         description : "1-person tent",        price : 119.99, qty : 1, image: "assets/img/voiture-enfant.jpg"}
+  ];
+
+  $scope.cart = [];
+
+  var findItemById = function(items, id) {
+    return _.find(items, function(item) {
+      return item.id === id;
+    });
+  };
+
+  $scope.getCost = function(item) {
+    return item.qty * item.price;
+  };
+
+  $scope.addItem = function(itemToAdd) {
+    var found = findItemById($scope.cart, itemToAdd.id);
+    if (found) {
+      found.qty += itemToAdd.qty;
     }
+    else {
+      $scope.cart.push(angular.copy(itemToAdd));}
+  };
 
-    $scope.addItemToCart = function(product){
+  $scope.getTotal = function() {
+    var total =  _.reduce($scope.cart, function(sum, item) {
+      return sum + $scope.getCost(item);
+    }, 0);
+    console.log('total: ' + total);
+    return total;
+  };
 
-      if ($scope.cart.length === 0){
-        product.count = 1;
-        $scope.cart.push(product);
-      } else {
-        var repeat = false;
-        for(var i = 0; i< $scope.cart.length; i++){
-          if($scope.cart[i].id === product.id){
-            repeat = true;
-            $scope.cart[i].count +=1;
-          }
-        }
-        if (!repeat) {
-          product.count = 1;
-          $scope.cart.push(product);
-        }
-      }
-      var expireDate = new Date();
-      expireDate.setDate(expireDate.getDate() + 1);
-      $cookies.putObject('cart', $scope.cart,  {'expires': expireDate});
-      $scope.cart = $cookies.getObject('cart');
+  $scope.clearCart = function() {
+    $scope.cart.length = 0;
+  };
 
-      $scope.total += parseFloat(product.price);
-      $cookies.put('total', $scope.total,  {'expires': expireDate});
-     };
+  $scope.removeItem = function(item) {
+    var index = $scope.cart.indexOf(item);
+    $scope.cart.splice(index, 1);
+  };
 
-     $scope.removeItemCart = function(product){
-
-       if(product.count > 1){
-         product.count -= 1;
-         var expireDate = new Date();
-         expireDate.setDate(expireDate.getDate() + 1);
-         $cookies.putObject('cart', $scope.cart, {'expires': expireDate});
-         $scope.cart = $cookies.getObject('cart');
-       }
-       else if(product.count === 1){
-         var index = $scope.cart.indexOf(product);
-       $scope.cart.splice(index, 1);
-       expireDate = new Date();
-       expireDate.setDate(expireDate.getDate() + 1);
-       $cookies.putObject('cart', $scope.cart, {'expires': expireDate});
-       $scope.cart = $cookies.getObject('cart');
-
-       }
-
-       $scope.total -= parseFloat(product.price);
-       $cookies.put('total', $scope.total,  {'expires': expireDate});
-
-     };
-
-  }]);
-
-  var productsData = [{
-    id: 1,
-    name: 'product1',
-    price: 100.0,
-    image: ''
-  },{
-    id: 2,
-    name: 'product2',
-    price: 14.5,
-    image: ''
-  },{
-    id: 3,
-    name: 'product3',
-    price: 100.43,
-    image: ''
-  },{
-    id: 4,
-    name: 'product4',
-    price: 99.9,
-    image: ''
-  }];
-
-})();
+});
