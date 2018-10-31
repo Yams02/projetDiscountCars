@@ -1,0 +1,37 @@
+body{
+background:  url('../img/greydegrade.jpeg') no-repeat;
+background-size :cover;
+}
+.fa-home{
+  color:#fff;
+}
+
+.fa-shopping-basket{
+  color:#fff;
+}
+.fa-sign-in-alt{
+    color:#fff;
+}
+.fa-check-circle{
+    color:#fff;
+}
+  #logo{
+    height: 65px;
+    width: 400px;
+  }
+.carous{
+  width: 70%;
+  padding: 30px;
+}
+footer{
+  margin: 45%;
+}
+  @media screen and (max-width: 480px){
+    #logo{
+      height: 65px;
+      width: 150px;
+    }
+    footer{
+      margin: 35%;
+    }
+  }
