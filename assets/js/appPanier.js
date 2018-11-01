@@ -9,7 +9,7 @@ angular.module('myApp')
     $window.alert(greeting);
   };
   /*function alert contact*/
-  $scope.contact = 'Pour plus de renseignement contacter'+'\n'+'\n'+'Service clients :'+ '+330911821802';
+  $scope.contact = 'Pour plus de renseignement contacter'+'\n'+'\n'+'Service clients :'+ '+33 09.11.82.18.02';
   $scope.contactA = function(contact) {
     $window.alert(contact);
   };
