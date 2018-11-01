@@ -6,6 +6,10 @@ angular.module('myApp')
   $scope.doGreeting = function(greeting) {
     $window.alert(greeting);
   };
+  $scope.contact = 'Pour plus de renseignement contatcter'+'\n'+'\n'+'Service clients : +330911821802';
+  $scope.contactA = function(contact) {
+    $window.alert(contact);
+  };
   $scope.master = {};
   $scope.regex = '\\d+';
   $scope.update = function(user) {
