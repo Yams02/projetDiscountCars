@@ -9,7 +9,7 @@ angular.module('myApp')
     $window.alert(greeting);
   };
   /*function alert contact*/
-  $scope.contact = 'Pour plus de renseignement contatcter'+'\n'+'\n'+'Service clients :'+ '+330911821802';
+  $scope.contact = 'Pour plus de renseignement contacter'+'\n'+'\n'+'Service clients :'+ '+330911821802';
   $scope.contactA = function(contact) {
     $window.alert(contact);
   };
@@ -33,15 +33,15 @@ angular.module('myApp')
   };
   /*appPanier Json*/
   $scope.inventory = [
-    { id :  1, category : "audi", description : "Audi A3 Diesel", price : 2.99, qty : 1, image: "assets/img/Audi-a3.jpg" },
-    { id :  2, category : "citroen", description : "Citroen 2ch", price : 2.99, qty : 1, image: "assets/img/citroen-2cv.jpg" },
-    { id :  3, category : "citroen", description : "Citroen C3 cactus", price :   6.99, qty : 1, image: "assets/img/citroen-c3.jpg" },
-    { id :  4, category : "peugeot", description : "Peugeot 205", price : 12.99, qty : 1, image: "assets/img/peugeot-205.jpg" },
-    { id :  5, category : "peugeot", description : "Peugeot 405", price : 29.99, qty : 1, image: "assets/img/peugeot-police.jpg" },
-    { id :  6, category : "renault", description : "Renault 5", price : 29.99, qty : 1, image: "assets/img/renault-5.jpg" },
-    { id :  7, category : "renault", description : "Renault Clio", price : 49.99, qty : 1, image: "assets/img/renault-clio.jpg" },
-    { id :  8, category : "renault", description : "Renault Scenic", price : 79.99, qty : 1, image: "assets/img/renault-scenic.jpg" },
-    { id :  9, category : "voiture enfant", description : "Collection", price : 119.99, qty : 1, image: "assets/img/voiture-enfant.jpg"}
+    { id :  1, category : "Audi", name : "Audi A3 Diesel",  description : "Bonne état", price : 2.99, qty : 1, image: "assets/img/Audi-a3.jpg" },
+    { id :  2, category : "Citroen", name : "Citroen 2ch", description : "Affaire a saisir", price : 2.99, qty : 1, image: "assets/img/citroen-2cv.jpg" },
+    { id :  3, category : "Citroen", name : "Citroen C3 cactus", description : "A débattre", price :   6.99, qty : 1, image: "assets/img/citroen-c3.jpg" },
+    { id :  4, category : "Peugeot", name : "Peugeot 205", description : "Petit malin s'abstenir", price : 12.99, qty : 1, image: "assets/img/peugeot-205.jpg" },
+    { id :  5, category : "Peugeot", name : "Peugeot 405", description : "Second main \n propiétaire : Mr Shmit", price : 29.99, qty : 1, image: "assets/img/peugeot-police.jpg" },
+    { id :  6, category : "Renault", name : "Renault 5", description : "Dans l\'état", price : 29.99, qty : 1, image: "assets/img/renault-5.jpg" },
+    { id :  7, category : "Renault", name : "Renault Clio", description : "Distribution Ok", price : 49.99, qty : 1, image: "assets/img/renault-clio.jpg" },
+    { id :  8, category : "Renault", name : "Renault Scenic", description : "Familliale", price : 79.99, qty : 1, image: "assets/img/renault-scenic.jpg" },
+    { id :  9, category : "Voiture enfant", name : "Collection", description : "Joyeux Noel", price : 119.99, qty : 1, image: "assets/img/voiture-enfant.jpg"}
   ];
   /*fucntion cartArticle = Json = item*/
   $scope.cart = [];
