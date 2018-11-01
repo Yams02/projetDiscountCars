@@ -1,7 +1,11 @@
 angular.module('myApp', ['ngAnimate']);
 
 angular.module('myApp')
-.controller('myController', function ($scope) {
+.controller('myController', ['$scope', '$window', function ($scope, $window) {
+  $scope.greeting = '';
+  $scope.doGreeting = function(greeting) {
+    $window.alert(greeting);
+  };
   $scope.master = {};
   $scope.regex = '\\d+';
   $scope.update = function(user) {
@@ -68,4 +72,4 @@ angular.module('myApp')
     var index = $scope.cart.indexOf(item);
     $scope.cart.splice(index, 1);
   };
-});
+}]);

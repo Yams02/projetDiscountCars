@@ -16,8 +16,8 @@ background-size :cover;
     color:#fff;
 }
   #logo{
-    height: 65px;
-    width: 400px;
+    height: 45px;
+    width: 800px;
   }
 .carous{
   width: 70%;
@@ -35,3 +35,13 @@ footer{
       margin: 35%;
     }
   }
+#titre{
+  font-family: 'Indie Flower', cursive;
+  padding: 10px;
+  text-align: center;
+}
+#sousTitre{
+  font-family: 'Indie Flower', cursive;
+padding: 5px;
+  text-align: center
+}

@@ -19,6 +19,7 @@
   <script src="assets/bootstrap/js/ui-bootstrap-tpls-2.5.0.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
   <title>Discount Cars</title>
 </head>
 <body ng-app="myApp" ng-controller="myController">
@@ -27,18 +28,18 @@
     <header>
 
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
-        <input type="text" placeholder="Search" ng-model="searchText" />
+        <input type="text" placeholder="Rechercher..." ng-model="searchText" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--Titre-navbar-->
         <div class="navbar-header">
-          <a class="navbar-brand" href="#wrapper_0"><img src="assets/img/projectCars.png" id="logo" alt="logo"></a>
+          <a class="navbar-brand" href="#"><img src="assets/img/projectCars.png" id="logo" alt="logo"></a>
         </div>
         <!--Titre-navbar-->
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10" >
           <ul class="navbar-nav">
-            <li></li>
+             <li><a href="https://www.google.com/"><i class="fab fa-chrome"></i></a></li>
             <li class="nav-item active">
 
               <div class="container">
@@ -51,46 +52,47 @@
 
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h4 class="modal-title">Information</h4>
+                        <h4 class="modal-title">Inscription & validation commande</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
 
                       <!-- Modal body -->
                       <div class="modal-body">
                         <div >
-                          <h1>Inscription</h1>
                           <form name="ajoutUtilisateur" ng-submit="soumission(ajoutUtilisateur.$valid)">
                             <div class="form-group">
                               <label for="nom">Nom :</label>
-                              <input type="text" class="form-control" id="nom" placeholder="Votre nom" ng-model="user.nom" required>
+                              <input type="text" class="form-control" ng-pattern="/^[a-zA-Z]*$/" id="nom" placeholder="Votre nom" ng-model="user.nom" required>
                             </div>
                             <div class="form-group">
                               <label for="nom">Prénom :</label>
-                              <input type="text" class="form-control" id="prenom" placeholder="Votre prénom" ng-model="user.prenom" required>
+                              <input type="text" class="form-control" ng-pattern="/^[a-zA-Z]*$/" id="prenom" placeholder="Votre prénom" ng-model="user.prenom" required>
                             </div>
                             <div class="form-group">
                               <label for="email">Email :</label>
                               <input type="email" class="form-control" id="email" placeholder="Votre Email" ng-model="user.email" required>
                             </div>
-                            <div>
-                              <label>Password :</label>
-                              <input  type="password" name="Password" ng-model="user.Password" required ng-minlength="6" />
+                            <div class="form-group">
+                              <label for="password">Password :</label>
+                              <input  type="password" class="form-control" placeholder="6 caractères"  name="Password" ng-model="user.Password" required maxlength="6" />
                             </div>
-                            <div>
-                              <label>Confirm Password</label>
-                              <input  type="password" name="ConfirmPassword" required equals-to="registerForm.Password" ng-model="user.ConfirmPassword" />
+                            <div class="form-group">
+                              <label for="confirmPassword">Confirm Password</label>
+                              <input  type="password" class="form-control" name="ConfirmPassword" placeholder="6 caractères" ng-model="user.ConfirmPassword" required maxlength="6" />
                             </div>
                             <hr>
+                            <div class="form-group">
                             Genre:
-                            <label><input type="radio" ng-model="user.gender" value="male" />homme</label>
-                            <label><input type="radio" ng-model="user.gender" value="female" />femme</label>
+                            <label for="genre"><input type="radio"  ng-model="user.gender" value="male" />homme</label>
+                            <label for="genre"><input type="radio"  ng-model="user.gender" value="female" />femme</label>
                             <hr/>
-                            <label>
-                              <input type="checkbox" ng-model="user.agree" name="userAgree" required="" />
+                          </div>
+                            <label for="agreeForm">
+                              <input type="checkbox" ng-model="user.agree" name="userAgree" required />
                               J'accepte l'enregistrement de mes données personel :
                             </label>
-                            <label>
-                              <input ng-show="user.agree" type="checkbox" ng-model="user.agreeSign" required="" />
+                            <label  form="agreeForm">
+                              <input ng-show="user.agree" type="checkbox" ng-model="user.agreeSign" required />
                               Confirmation
                             </label>
                             <div ng-show="form.$submitted || form.userAgree.$touched">
@@ -122,47 +124,59 @@
 
                 <i class="fas fa-shopping-basket" data-toggle="modal" data-target="#myModal1"></i>
                 <!-- The Modal -->
-                <div class="modal fade" id="myModal1">
+                <div class="modal fade" id="myModal1" ng-submit="soumission(ajoutUtilisateur.$valid)">
                   <div class="modal-dialog">
                     <div class="modal-content">
 
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h4 class="modal-title">Panier</h4>
+                        <h1 class="modal-title">Panier</h1>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
 
                       <!-- Modal body -->
                       <div class="modal-body">
                         <div class="row">
-                          <h2>Your Cart:</h2>
+
                           <ul>
                             <li class="animate-repeat" ng-repeat="item in cart | orderBy:'category'">
-                              <span>  <img width="100" height="100" src="{{item.image}}" />{{   item.qty + ' x ' + item.description + ' = ' + getCost(item)  }}€</span>
-                              <button class="btn-danger btn-xs" ng-click="removeItem(item);">Remove Item</button>
+                              <span>  <img width="100" height="100" src="{{item.image}}" />{{   item.qty + ' x ' + item.description + ' Prix ' + getCost(item)  }}€</span>
+                              <button class="btn btn-danger btn-xs" ng-click="removeItem(item);">Annuler</button>
                             </br>
                           </br>
                         </li>
                       </ul>
                       <h3>Total: {{ getTotal() }}€</h3>
-                      <button class="btn-danger" ng-click="clearCart();">Clear Cart</button>
-                      <div>
-                        <label>Password :</label>
-                        <input  type="password" name="Password" ng-model="user.Password" required ng-minlength="6" />
-                      </div>
-                      <div>
-                        <label>Confirm Password</label>
-                        <input  type="password" name="ConfirmPassword" required equals-to="registerForm.Password" ng-model="user.ConfirmPassword" />
+                      <div>                  <button class="btn btn-danger" ng-click="clearCart();">Vider panier</button>
+                        <hr>
+                        <h2>Paiement</h2>
+                        <hr>
+                        <div class="form-group">
+                          <label>Mastercard<input type="radio" class="form-control" ng-model="user.gender" value="masterCard" required /></label>
+                          <label>Visa<input type="radio" class="form-control" ng-model="user.gender" value="visa" required /></label>
+                        </div>
+                        <div class="form-group">
+                          <label>n°Carte :</label>
+                          <input  type="password" class="form-control" required ng-pattern="/^[0-9\s]*$/" maxlength="19" name="numberCB" ng-model="user.CB" placeholder="0000 0000 0000 0000" required />
+                        </div>
+                        <div class="form-group">
+                          <label>Expire date :</label>
+                          <input  type="password" class="form-control" name="dateCB" required ng-pattern="/^[0-9]*$/" maxlength="4" placeholder="0000" ng-model="user.dateCB"/>
+                        </div>
+                        <div class="form-group">
+                          <label>Crypto :</label>
+                          <input  type="password" class="form-control" name="cryptoCB" required ng-pattern="/^[0-9]*$/" maxlength="3" placeholder="000" ng-model="user.cryptoCB" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button class="fas fa-home btn btn-primary"  data-toggle="modal" data-target="#myModal">Valider panier</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                          <div class="alert" ng-class="messageClass" ng-show="message">{{message}}</div>
+                      <button class="fas fa-home btn btn-primary" type="submit" ng-click="update(user)"  data-toggle="modal" data-target="#myModal">Valider panier</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Quitter</button>
+                    </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -170,7 +184,7 @@
           </div>
         </li>
 
-        <li><a data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt">Sign in</i></a></li>
+        <li><a data-toggle="modal" data-target="#loginModal"><i class="fas fa-sign-in-alt">Se connecter</i></a></li>
         <li>
           <!-- Button to Open the Modal -->
           <i class="far fa-check-circle" data-toggle="modal" data-target="#myModal2"></i>
@@ -183,7 +197,7 @@
 
                   <!-- Modal Header -->
                   <div class="modal-header">
-                    <h4 class="modal-title">Your data</h4>
+                    <h4 class="modal-title">Vos données</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
 
@@ -194,7 +208,7 @@
 
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Quitter</button>
                   </div>
 
                 </div>
@@ -214,27 +228,30 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"> &times;</button>
-        <h2>Login</h2>
+        <h2>S'identifier</h2>
       </div>
       <div class="modal-body">
         <form class="form-inline">
           <div class="form-group">
-            <label class="sr-only" for="email">Email</label>  <input name="Email" type="email" required />
+            <label class="sr-only" for="email">Email</label>  <input name="Email"  ng-model="greeting" aria-label="greeting" placeholder="Votre Email" class="form-control" type="email" required />
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">Password</label>
-            <input type="password" class="form-control input-sm" placeholder="Password" id="password" name="password"></div>
+            <input type="password" class="form-control input-sm" placeholder="Password" class="form-control" id="password" name="password" required /></div>
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Remember me
+                <input type="checkbox"> Se souvenir de moi
               </label>
             </div>
-            <button type="submit" class="btn btn-info btn-xs">Sign in</button>
-            <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Cancel</button>
+
           </form>
         </div>
         <div class="modal-footer">
-          <div style="padding:10px"></div>
+          <div >
+            <button ng-click="doGreeting(greeting)">ALERT</button>
+          </div>
+          <button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Quitter</button>
+
         </div>
       </div>
     </div>
@@ -247,41 +264,44 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12 col-xl-12">
         <!--Début shop-->
         <hr>
-        <h1>Bienvenu chez Discount Cars</h1>
+        <h1 id="titre">Bienvenue chez Discount Cars</h1>
+        <h2 id="sousTitre">Les professionnels de l'automobile d'occasion</h2>
         <div class="row">
           <div class="container">
-          <table class="table col-md-9 col-md-offset-3">
-            <tr>
-              <th>Image</th>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th class="qty">Qty</th>
-              <th>Total</th>
-            </tr>
-            <tr class="animate-repeat" ng-repeat="item in inventory | filter:searchText | orderBy:'category' ">
-              <td><img width="300" height="200" ng-src="{{ item.image }}"/></td>
-              <td>{{ item.category }}</td>
-              <td>{{ item.description }}</td>
-              <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price }}€</td>
-              <td><input type="number" ng-model="item.qty" class="qty"></td>
-              <td>{{ item.qty * item.price }}€</td>
-              <td><button class="btn btn-primary" ng-click="addItem(item)">Commander</button></td>
-            </tr>
-          </table>
-        </div>
+            <table class="table col-md-9 col-md-offset-3">
+              <tr>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th class="qty">Qty</th>
+                <th>Total</th>
+              </tr>
+              <tr class="animate-repeat" ng-repeat="item in inventory | filter:searchText | orderBy:'category' ">
+                <td><img width="300" height="200" ng-src="{{ item.image }}"/></td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.description }}</td>
+                <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price }}€</td>
+                <td><input type="number" ng-model="item.qty" class="qty"></td>
+                <td>{{ item.qty * item.price }}€</td>
+                <td><button class="btn btn-primary" ng-click="addItem(item)">Commander</button></td>
+              </tr>
+            </table>
+          </div>
 
-        <!--Fin shop-->
-        <footer class="my-5 pt-5 text-center text-small">
-          <p class="mb-1">&copy; 2018-2019 DicountCars</p>
-          <ul class="list-inline">
-            <li class="list-inline-item"><i class="fas fa-phone" href="#" id="contact">CONTACT</i></li>
-          </ul>
-          <a class="btn btn-primary" href="#"><i class="fas fa-home">HOME</i></a>
-        </footer>
-        <script src="assets/js/appPanier.js"></script>
-<script>
+          <!--Fin shop-->
+          <footer class="my-5 pt-5 text-center text-small">
+            <p class="mb-1">&copy; 2018-2019 DicountCars</p>
+            <ul class="list-inline">
+              <li class="list-inline-item"><i class="fas fa-phone" href="#" id="contact">CONTACT</i></li>
+            </ul>
+            <a class="btn btn-primary" href="#"><i class="fas fa-home">HOME</i></a>
+          </footer>
+          <script src="assets/js/appPanier.js"></script>
+          <script>
 
-</script>
-      </body>
-      </html>
+
+
+          </script>
+        </body>
+        </html>
