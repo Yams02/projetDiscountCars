@@ -77,7 +77,25 @@ angular.module('myApp')
     };
     /*function supprimer item*/
     $scope.removeItem = function(item) {
-      var index = $scope.cart.indexOf(item);
+      if(item.qty > 1){
+        item.qty -= 1;
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 1);
+        $cookies.putObject('cart', $scope.cart, {'expires': expireDate});
+        $scope.cart = $cookies.getObject('cart');
+      }
+      else if(item.qty === 1){
+        var index = $scope.cart.indexOf(item);
       $scope.cart.splice(index, 1);
+      expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() + 1);
+      $cookies.putObject('cart', $scope.cart, {'expires': expireDate});
+      $scope.cart = $cookies.getObject('cart');
+
+      }
+
+      $scope.total -= parseFloat(item.qty);
+      $cookies.put('total', $scope.total,  {'expires': expireDate});
+
     };
   }]);
