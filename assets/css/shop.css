@@ -1,6 +1,6 @@
 body{
-background:  url('../img/greydegrade.jpeg') no-repeat;
-background-size :cover;
+  background:  url('../img/greydegrade.jpeg') no-repeat;
+  background-size :cover;
 }
 .fa-home{
   color:#fff;
@@ -10,15 +10,15 @@ background-size :cover;
   color:#fff;
 }
 .fa-sign-in-alt{
-    color:#fff;
+  color:#fff;
 }
 .fa-check-circle{
-    color:#fff;
+  color:#fff;
 }
-  #logo{
-    height: 45px;
-    width: 800px;
-  }
+#logo{
+  height: 45px;
+  width: 800px;
+}
 .carous{
   width: 70%;
   padding: 30px;
@@ -26,15 +26,15 @@ background-size :cover;
 footer{
   margin: 45%;
 }
-  @media screen and (max-width: 480px){
-    #logo{
-      height: 65px;
-      width: 150px;
-    }
-    footer{
-      margin: 35%;
-    }
+@media screen and (max-width: 480px){
+  #logo{
+    height: 65px;
+    width: 150px;
   }
+  footer{
+    margin: 35%;
+  }
+}
 #titre{
   font-family: 'Indie Flower';
   text-align: center;

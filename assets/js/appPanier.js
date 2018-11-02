@@ -24,7 +24,7 @@ angular.module('myApp')
   $scope.soumission = function (valid) {
     if(valid) {
       $scope.messageClass='alert-success';
-      $scope.message = 'Merci ' + $scope.user.prenom + ' votre inscription est validée !';
+      $scope.message = 'Merci ' + $scope.user.prenom + ' votre commande est validée !';
     }
     else {
       $scope.messageClass='alert-danger';
